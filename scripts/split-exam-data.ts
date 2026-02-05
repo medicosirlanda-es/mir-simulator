@@ -79,7 +79,7 @@ function main() {
       totalQuestions: exam.total_questions,
       numOptions,
       hasImages: imageCount > 0,
-      questions: exam.questions.map((q) => ({
+      questions: exam.questions.slice().sort((a, b) => a.number - b.number).map((q) => ({
         number: q.number,
         text: q.text,
         textHtml: stripImgTags(q.text_html),

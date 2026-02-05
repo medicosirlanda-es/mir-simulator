@@ -28,7 +28,10 @@ function quizReducer(state: QuizState, action: QuizAction): QuizState {
         ...state,
         answers: {
           ...state.answers,
-          [action.questionNumber]: action.selectedOrder,
+          [action.questionNumber]:
+            state.answers[action.questionNumber] === action.selectedOrder
+              ? null
+              : action.selectedOrder,
         },
       };
     case "NAVIGATE":

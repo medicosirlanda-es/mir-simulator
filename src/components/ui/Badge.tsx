@@ -6,7 +6,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   default: "bg-background text-text-secondary",
   success: "bg-success-light text-success-dark",
   error: "bg-error-light text-error-dark",
-  warning: "bg-warning-light text-warning",
+  warning: "bg-warning-light text-warning-dark",
   primary: "bg-primary/10 text-primary",
 };
 
@@ -22,7 +22,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium",
+        "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold",
         variantStyles[variant],
         className
       )}

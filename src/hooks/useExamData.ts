@@ -9,31 +9,26 @@ export function useExamData(year: number) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
+    const controller = new AbortController();
     setIsLoading(true);
     setError(null);
 
-    fetch(`/data/exam-${year}.json`)
+    fetch(`/data/exam-${year}.json`, { signal: controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error(`Examen ${year} no encontrado`);
         return res.json();
       })
       .then((data: Exam) => {
-        if (!cancelled) {
-          setExam(data);
-          setIsLoading(false);
-        }
+        setExam(data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        if (!cancelled) {
-          setError(err.message);
-          setIsLoading(false);
-        }
+        if (err.name === "AbortError") return;
+        setError(err.message);
+        setIsLoading(false);
       });
 
-    return () => {
-      cancelled = true;
-    };
+    return () => controller.abort();
   }, [year]);
 
   return { exam, isLoading, error };

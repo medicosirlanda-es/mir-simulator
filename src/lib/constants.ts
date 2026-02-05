@@ -1,12 +1,16 @@
 export const APP_NAME = "Simulador MIR";
 
+export const EXAM_YEAR_START = 2003;
+export const EXAM_YEAR_END = 2024;
+export const EXAM_YEARS = Array.from(
+  { length: EXAM_YEAR_END - EXAM_YEAR_START + 1 },
+  (_, i) => EXAM_YEAR_START + i
+);
+
 export const STORAGE_KEYS = {
   QUIZ_STATE: (year: number) => `mir-quiz-${year}`,
   QUIZ_RESULTS: "mir-results-history",
   PRACTICE_STATE: "mir-practice-state",
 } as const;
-
-/** Official MIR exam duration: 5 hours (300 minutes) */
-export const MIR_TIME_LIMIT_SECONDS = 5 * 60 * 60;
 
 export const PRACTICE_QUESTION_COUNTS = [10, 25, 50] as const;

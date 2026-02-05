@@ -68,6 +68,8 @@ export interface QuizResult {
   answers: Record<number, number | null>;
 }
 
+export type AnswerDisplayState = "default" | "selected" | "correct" | "incorrect" | "missed";
+
 export type QuizAction =
   | { type: "SELECT_ANSWER"; questionNumber: number; selectedOrder: number }
   | { type: "NAVIGATE"; questionNumber: number }

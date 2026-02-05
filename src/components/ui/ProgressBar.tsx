@@ -14,15 +14,15 @@ export function ProgressBar({
   const percent = max > 0 ? Math.round((value / max) * 100) : 0;
 
   const colorMap = {
-    primary: "bg-primary",
-    success: "bg-success",
+    primary: "bg-gradient-to-r from-primary to-primary-light",
+    success: "bg-gradient-to-r from-success-dark to-success",
     error: "bg-error",
-    "accent-green": "bg-accent-green",
+    "accent-green": "bg-gradient-to-r from-accent-green-dark to-accent-green",
   };
 
   return (
     <div
-      className={cn("h-2 w-full rounded-full bg-background overflow-hidden", className)}
+      className={cn("h-2 w-full rounded-full bg-border/50 overflow-hidden", className)}
       role="progressbar"
       aria-valuenow={value}
       aria-valuemin={0}
@@ -31,7 +31,7 @@ export function ProgressBar({
     >
       <div
         className={cn(
-          "h-full rounded-full transition-all duration-500 ease-out",
+          "h-full rounded-full transition-[width] duration-500 ease-out",
           colorMap[color]
         )}
         style={{ width: `${percent}%` }}

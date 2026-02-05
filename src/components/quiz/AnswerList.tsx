@@ -1,19 +1,16 @@
 "use client";
 
-import type { Question } from "@/types/quiz";
+import type { Question, AnswerDisplayState } from "@/types/quiz";
 import { AnswerOption } from "./AnswerOption";
-
-type AnswerState = "default" | "selected" | "correct" | "incorrect" | "missed";
 
 function getAnswerState(
   answer: { order: number; isCorrect: boolean },
   selectedOrder: number | null,
   isSubmitted: boolean
-): AnswerState {
+): AnswerDisplayState {
   if (!isSubmitted) {
     return selectedOrder === answer.order ? "selected" : "default";
   }
-  // Submitted / review mode
   if (answer.isCorrect) return "correct";
   if (selectedOrder === answer.order) return "incorrect";
   return "default";
@@ -31,7 +28,8 @@ export function AnswerList({
   onSelect: (order: number) => void;
 }) {
   return (
-    <div className="space-y-2 pl-11">
+    <fieldset className="space-y-2 pl-11 border-0 p-0 m-0">
+      <legend className="sr-only">Opciones de respuesta para la pregunta {question.number}</legend>
       {question.answers.map((answer, i) => (
         <AnswerOption
           key={answer.order}
@@ -42,6 +40,6 @@ export function AnswerList({
           disabled={isSubmitted}
         />
       ))}
-    </div>
+    </fieldset>
   );
 }

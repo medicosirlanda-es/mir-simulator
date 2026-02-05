@@ -17,7 +17,11 @@ export function QuestionGrid({
   onNavigate: (questionNumber: number) => void;
 }) {
   return (
-    <div className="grid grid-cols-5 gap-1.5 sm:grid-cols-8 lg:grid-cols-5">
+    <div
+      className="grid grid-cols-5 gap-1.5 sm:grid-cols-8 lg:grid-cols-5"
+      role="navigation"
+      aria-label="Mapa de preguntas"
+    >
       {questions.map((q) => {
         const isAnswered = answers[q.number] != null;
         const isCurrent = q.number === currentQuestion;
@@ -29,11 +33,23 @@ export function QuestionGrid({
           correctness = selectedOrder === correctOrder ? "correct" : "incorrect";
         }
 
+        const statusLabel = isSubmitted
+          ? correctness === "correct"
+            ? "correcta"
+            : correctness === "incorrect"
+              ? "incorrecta"
+              : "sin responder"
+          : isAnswered
+            ? "respondida"
+            : "sin responder";
+
         return (
           <button
             key={q.number}
             type="button"
             onClick={() => onNavigate(q.number)}
+            aria-label={`Pregunta ${q.number}, ${statusLabel}`}
+            aria-current={isCurrent ? "step" : undefined}
             className={cn(
               "flex items-center justify-center w-9 h-9 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer",
               isCurrent && "ring-2 ring-primary ring-offset-1",

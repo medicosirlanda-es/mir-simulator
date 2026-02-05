@@ -7,6 +7,7 @@
   --color-surface: #FFFFFF;
   --color-primary: #3159a7;
   --color-primary-light: #3d82c3;
+  --color-primary-dark: #263f78;
 
   /* Accent Green */
   --color-accent-green: #169B62;
@@ -18,10 +19,10 @@
   --color-accent-orange: #FF883E;
   --color-accent-orange-dark: #E67A38;
 
-  /* Text colors */
+  /* Text colors - all pass WCAG AA on #F8F9FA */
   --color-text-primary: #1A202C;
   --color-text-secondary: #4A5568;
-  --color-text-muted: #5a6a7d;
+  --color-text-muted: #4F5D6F;
   --color-text-inverted: #FFFFFF;
 
   /* Border */
@@ -36,10 +37,10 @@
   --color-error-dark: #DC2626;
   --color-warning: #F59E0B;
   --color-warning-light: #FEF3C7;
+  --color-warning-dark: #B45309;
 
   /* Fonts */
   --font-sans: var(--font-montserrat), system-ui, sans-serif;
-  --font-serif: var(--font-merriweather), serif;
 }
 
 /* Base styles */
@@ -66,7 +67,7 @@ button, a, [role="button"], input, select, textarea {
   border-color: var(--color-border);
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - WebKit */
 ::-webkit-scrollbar {
   width: 0.5rem;
 }
@@ -84,9 +85,15 @@ button, a, [role="button"], input, select, textarea {
   background-color: var(--color-text-secondary);
 }
 
-/* Selection */
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-background);
+}
+
+/* Selection - using primary (darker) for better contrast */
 ::selection {
-  background-color: var(--color-primary-light);
+  background-color: var(--color-primary);
   color: var(--color-text-inverted);
 }
 
@@ -104,27 +111,6 @@ button, a, [role="button"], input, select, textarea {
   }
 }
 
-@utility card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  }
-}
-
-@utility gradient-text {
-  background: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-@utility glass {
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 /* Keyframe animations */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -132,37 +118,67 @@ button, a, [role="button"], input, select, textarea {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: scale(0.8); }
   to { opacity: 1; transform: scale(1); }
 }
 
 @utility animate-fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.4s ease-out both;
 }
 
 @utility animate-slide-up {
-  animation: slideUp 0.6s ease-out;
+  animation: slideUp 0.5s ease-out both;
 }
 
 @utility animate-scale-in {
-  animation: scaleIn 0.3s ease-out;
+  animation: scaleIn 0.3s ease-out both;
 }
+
+@utility animate-slide-down {
+  animation: slideDown 0.3s ease-out both;
+}
+
+@utility animate-count-up {
+  animation: countUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Stagger delays for list animations */
+@utility stagger-1 { animation-delay: 50ms; }
+@utility stagger-2 { animation-delay: 100ms; }
+@utility stagger-3 { animation-delay: 150ms; }
+@utility stagger-4 { animation-delay: 200ms; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in,
   .animate-slide-up,
-  .animate-scale-in {
+  .animate-scale-in,
+  .animate-slide-down,
+  .animate-count-up {
     animation: none;
     opacity: 1;
     transform: none;
   }
-  .card-hover {
-    transition: none;
+
+  .stagger-1,
+  .stagger-2,
+  .stagger-3,
+  .stagger-4 {
+    animation-delay: 0ms;
   }
 }

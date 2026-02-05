@@ -1,10 +1,9 @@
 import { ResultsClient } from "./ResultsClient";
+import { EXAM_YEARS } from "@/lib/constants";
 import type { Metadata } from "next";
 
-const YEARS = Array.from({ length: 22 }, (_, i) => 2003 + i);
-
 export function generateStaticParams() {
-  return YEARS.map((year) => ({ year: String(year) }));
+  return EXAM_YEARS.map((year) => ({ year: String(year) }));
 }
 
 export function generateMetadata({

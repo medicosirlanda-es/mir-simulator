@@ -1,0 +1,161 @@
+{
+  "totalExams": 22,
+  "totalQuestions": 5057,
+  "yearRange": "2003-2024",
+  "exams": [
+    {
+      "year": 2003,
+      "totalQuestions": 251,
+      "numOptions": 5,
+      "hasImages": false,
+      "imageCount": 0
+    },
+    {
+      "year": 2004,
+      "totalQuestions": 250,
+      "numOptions": 5,
+      "hasImages": false,
+      "imageCount": 0
+    },
+    {
+      "year": 2005,
+      "totalQuestions": 252,
+      "numOptions": 5,
+      "hasImages": false,
+      "imageCount": 0
+    },
+    {
+      "year": 2006,
+      "totalQuestions": 252,
+      "numOptions": 5,
+      "hasImages": false,
+      "imageCount": 0
+    },
+    {
+      "year": 2007,
+      "totalQuestions": 254,
+      "numOptions": 5,
+      "hasImages": false,
+      "imageCount": 0
+    },
+    {
+      "year": 2008,
+      "totalQuestions": 253,
+      "numOptions": 5,
+      "hasImages": false,
+      "imageCount": 0
+    },
+    {
+      "year": 2009,
+      "totalQuestions": 230,
+      "numOptions": 5,
+      "hasImages": true,
+      "imageCount": 23
+    },
+    {
+      "year": 2010,
+      "totalQuestions": 235,
+      "numOptions": 5,
+      "hasImages": true,
+      "imageCount": 30
+    },
+    {
+      "year": 2011,
+      "totalQuestions": 227,
+      "numOptions": 5,
+      "hasImages": true,
+      "imageCount": 30
+    },
+    {
+      "year": 2012,
+      "totalQuestions": 234,
+      "numOptions": 5,
+      "hasImages": true,
+      "imageCount": 34
+    },
+    {
+      "year": 2013,
+      "totalQuestions": 235,
+      "numOptions": 5,
+      "hasImages": true,
+      "imageCount": 34
+    },
+    {
+      "year": 2014,
+      "totalQuestions": 234,
+      "numOptions": 5,
+      "hasImages": true,
+      "imageCount": 33
+    },
+    {
+      "year": 2015,
+      "totalQuestions": 235,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 30
+    },
+    {
+      "year": 2016,
+      "totalQuestions": 235,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 32
+    },
+    {
+      "year": 2017,
+      "totalQuestions": 235,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 35
+    },
+    {
+      "year": 2018,
+      "totalQuestions": 235,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 35
+    },
+    {
+      "year": 2019,
+      "totalQuestions": 185,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 27
+    },
+    {
+      "year": 2020,
+      "totalQuestions": 185,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 25
+    },
+    {
+      "year": 2021,
+      "totalQuestions": 210,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 25
+    },
+    {
+      "year": 2022,
+      "totalQuestions": 210,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 25
+    },
+    {
+      "year": 2023,
+      "totalQuestions": 210,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 25
+    },
+    {
+      "year": 2024,
+      "totalQuestions": 210,
+      "numOptions": 4,
+      "hasImages": true,
+      "imageCount": 25
+    }
+  ]
+}

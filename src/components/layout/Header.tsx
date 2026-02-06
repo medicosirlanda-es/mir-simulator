@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "/", label: "Exámenes" },
   { href: "/practicar", label: "Practicar" },
+  { href: "/diseccion/2024", label: "Disección" },
 ];
 
 export function Header() {

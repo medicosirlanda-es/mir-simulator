@@ -2,9 +2,12 @@ import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import type { ExamManifestEntry } from "@/types/quiz";
-import { FileText, ImageIcon, ChevronRight } from "lucide-react";
+import { FileText, ImageIcon, ChevronRight, Microscope } from "lucide-react";
+import { DISSECTION_YEARS } from "@/lib/constants";
 
 export function ExamCard({ exam }: { exam: ExamManifestEntry }) {
+  const hasDissection = (DISSECTION_YEARS as readonly number[]).includes(exam.year);
+
   return (
     <Link href={`/examen/${exam.year}`}>
       <Card hover className="p-5 group relative overflow-hidden">
@@ -29,6 +32,12 @@ export function ExamCard({ exam }: { exam: ExamManifestEntry }) {
               <Badge variant="default">
                 <ImageIcon className="h-3 w-3" aria-hidden="true" />
                 {exam.imageCount} img
+              </Badge>
+            )}
+            {hasDissection && (
+              <Badge variant="success">
+                <Microscope className="h-3 w-3" aria-hidden="true" />
+                Disección
               </Badge>
             )}
           </div>

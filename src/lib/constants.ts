@@ -14,3 +14,5 @@ export const STORAGE_KEYS = {
 } as const;
 
 export const PRACTICE_QUESTION_COUNTS = [10, 25, 50] as const;
+
+export const DISSECTION_YEARS = [2024] as const;

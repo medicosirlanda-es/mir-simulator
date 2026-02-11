@@ -32,7 +32,7 @@ export function PanoramaSection({ data, yearLabel, onNavigateToExplorer, onSpeci
   return (
     <div className="space-y-6">
       {/* Stat cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+      <div className="flex gap-3 md:gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-thin">
         <StatCard value={total} title="Preguntas" subtitle="Examen completo" color="blue" />
         <StatCard value={specCount} title="Especialidades" subtitle="Áreas médicas" color="green" />
         <StatCard value={imgCount} title="Con imagen" subtitle={`${pct(imgCount, total)}% del examen`} color="orange" />

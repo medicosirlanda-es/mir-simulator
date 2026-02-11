@@ -13,7 +13,7 @@ export function StatCard({ value, title, subtitle, color = "blue" }: StatCardPro
   return (
     <div
       className={cn(
-        "rounded-xl border border-border p-4 md:p-5 bg-surface shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md",
+        "rounded-xl border border-border p-4 md:p-5 bg-surface shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md min-w-[140px] snap-start shrink-0 sm:shrink sm:min-w-0",
         bg
       )}
     >

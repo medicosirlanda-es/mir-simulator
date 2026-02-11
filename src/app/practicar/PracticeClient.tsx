@@ -137,10 +137,25 @@ export function PracticeClient() {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
                   <Shuffle className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
-                <h1 className="text-2xl font-bold text-text-primary">Modo Práctica</h1>
+                <h1 className="text-2xl font-bold font-heading text-text-primary">Modo Practica</h1>
                 <p className="text-text-secondary mt-2">
                   Preguntas aleatorias con respuesta inmediata
                 </p>
+              </div>
+
+              <div className="flex gap-3 text-xs text-text-muted">
+                <div className="flex items-center gap-1.5 bg-background rounded-lg px-3 py-2 flex-1">
+                  <CheckCircle className="h-3.5 w-3.5 text-success shrink-0" aria-hidden="true" />
+                  <span>Feedback instantaneo</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-background rounded-lg px-3 py-2 flex-1">
+                  <Shuffle className="h-3.5 w-3.5 text-primary shrink-0" aria-hidden="true" />
+                  <span>Orden aleatorio</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-background rounded-lg px-3 py-2 flex-1">
+                  <Target className="h-3.5 w-3.5 text-accent-orange shrink-0" aria-hidden="true" />
+                  <span>Sin temporizador</span>
+                </div>
               </div>
 
               <div className="space-y-5">

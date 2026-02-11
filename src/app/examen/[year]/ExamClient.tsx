@@ -222,7 +222,7 @@ export function ExamClient({ year }: { year: number }) {
             {/* Desktop sidebar */}
             <aside className="hidden lg:block w-72 shrink-0" aria-label="Panel lateral">
               <div className="sticky top-24 space-y-4">
-                <Card className="p-4">
+                <Card className="p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
                   <h2 className="text-sm font-semibold text-text-secondary mb-3">
                     Mapa de preguntas
                   </h2>

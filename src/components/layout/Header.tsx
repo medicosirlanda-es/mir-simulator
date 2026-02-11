@@ -1,34 +1,38 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/Container";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Menu, X } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/", label: "Exámenes" },
+  { href: "/", label: "Examenes" },
   { href: "/practicar", label: "Practicar" },
-  { href: "/diseccion/all", label: "Disección" },
-  { href: "/revision", label: "Revisión" },
+  { href: "/diseccion/all", label: "Diseccion" },
+  { href: "/revision", label: "Revision" },
 ];
 
 export function Header() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-primary-dark to-primary text-text-inverted shadow-md">
       <Container className="flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-bold text-lg hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2.5 font-heading font-bold text-lg hover:opacity-90 transition-opacity"
           aria-label="Simulador MIR - Inicio"
         >
           <BookOpen className="h-6 w-6" aria-hidden="true" />
           <span>{APP_NAME}</span>
         </Link>
-        <nav aria-label="Navegación principal" className="flex items-center gap-1">
+
+        {/* Desktop nav */}
+        <nav aria-label="Navegacion principal" className="hidden sm:flex items-center gap-1">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/"
@@ -51,7 +55,56 @@ export function Header() {
             );
           })}
         </nav>
+
+        {/* Mobile hamburger button */}
+        <button
+          className="sm:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-nav"
+          aria-label={mobileOpen ? "Cerrar menu" : "Abrir menu"}
+        >
+          {mobileOpen ? (
+            <X className="h-6 w-6" aria-hidden="true" />
+          ) : (
+            <Menu className="h-6 w-6" aria-hidden="true" />
+          )}
+        </button>
       </Container>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <nav
+          id="mobile-nav"
+          aria-label="Navegacion principal"
+          className="sm:hidden border-t border-white/10 bg-primary-dark/95 backdrop-blur-sm animate-slide-down"
+        >
+          <Container className="py-3 flex flex-col gap-1">
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  onClick={() => setMobileOpen(false)}
+                  className={cn(
+                    "rounded-lg px-4 py-3 text-sm font-medium transition-colors min-h-[44px] flex items-center",
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "text-white/75 hover:bg-white/10 hover:text-white"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </Container>
+        </nav>
+      )}
     </header>
   );
 }

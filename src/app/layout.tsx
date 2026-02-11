@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es-ES" className="light">
+    <html lang="es-ES">
       <body className={`${figtree.variable} ${notoSans.variable} font-sans`}>
         <a
           href="#main-content"

@@ -10,10 +10,11 @@ import { Card } from "@/components/ui/Card";
 
 interface PanoramaSectionProps {
   data: DissectionQuestion[];
+  yearLabel: string;
   onNavigateToExplorer: (filters: DissectionFilters) => void;
 }
 
-export function PanoramaSection({ data, onNavigateToExplorer }: PanoramaSectionProps) {
+export function PanoramaSection({ data, yearLabel, onNavigateToExplorer }: PanoramaSectionProps) {
   const total = data.length;
   const specCount = new Set(data.map((q) => q.specialty)).size;
   const imgCount = data.filter((q) => q.images.length > 0).length;
@@ -87,7 +88,7 @@ export function PanoramaSection({ data, onNavigateToExplorer }: PanoramaSectionP
           Resumen ejecutivo
         </h3>
         <p className="text-text-secondary leading-relaxed text-sm">
-          El examen MIR 2024 contiene{" "}
+          El MIR {yearLabel} contiene{" "}
           <strong className="text-text-primary">{total} preguntas</strong> distribuidas en{" "}
           <strong className="text-text-primary">{specCount} especialidades</strong>.{" "}
           <strong className="text-text-primary">{topSpec[0]}</strong> domina con {topSpec[1]} preguntas (

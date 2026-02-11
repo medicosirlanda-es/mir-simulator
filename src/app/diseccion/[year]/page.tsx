@@ -1,9 +1,9 @@
 import { DissectionClient } from "./DissectionClient";
-import { DISSECTION_YEARS } from "@/lib/constants";
+import { DISSECTION_YEAR_PARAMS } from "@/lib/constants";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
-  return DISSECTION_YEARS.map((year) => ({ year: String(year) }));
+  return DISSECTION_YEAR_PARAMS.map((year) => ({ year }));
 }
 
 export function generateMetadata({
@@ -11,10 +11,13 @@ export function generateMetadata({
 }: {
   params: Promise<{ year: string }>;
 }): Promise<Metadata> {
-  return params.then(({ year }) => ({
-    title: `Disección MIR ${year}`,
-    description: `Análisis estadístico completo del examen MIR ${year}: distribución por especialidad, tipo de pregunta, nivel cognitivo, codificación SNOMED-CT, ICD-10, ATC.`,
-  }));
+  return params.then(({ year }) => {
+    const label = year === "all" ? "2020–2024" : year;
+    return {
+      title: `Disección MIR ${label}`,
+      description: `Análisis estadístico completo del examen MIR ${label}: distribución por especialidad, tipo de pregunta, nivel cognitivo, codificación SNOMED-CT, ICD-10, ATC.`,
+    };
+  });
 }
 
 export default async function DissectionPage({
@@ -23,5 +26,5 @@ export default async function DissectionPage({
   params: Promise<{ year: string }>;
 }) {
   const { year } = await params;
-  return <DissectionClient year={parseInt(year, 10)} />;
+  return <DissectionClient yearParam={year} />;
 }

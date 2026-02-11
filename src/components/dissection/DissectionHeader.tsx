@@ -2,13 +2,13 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 interface DissectionHeaderProps {
-  year: number;
+  yearLabel: string;
   totalQuestions: number;
   specialtyCount: number;
 }
 
 export function DissectionHeader({
-  year,
+  yearLabel,
   totalQuestions,
   specialtyCount,
 }: DissectionHeaderProps) {
@@ -19,10 +19,10 @@ export function DissectionHeader({
           Inicio
         </Link>
         <ChevronRight className="h-3 w-3" aria-hidden="true" />
-        <span className="text-text-primary font-medium">Disección {year}</span>
+        <span className="text-text-primary font-medium">Disección {yearLabel}</span>
       </nav>
       <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">
-        Disección MIR {year}
+        Disección MIR {yearLabel}
       </h1>
       <p className="text-sm text-text-secondary mt-1">
         {totalQuestions} preguntas · {specialtyCount} especialidades · Análisis completo

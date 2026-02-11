@@ -12,16 +12,19 @@ import { QuestionDetailModal } from "@/components/dissection/QuestionDetailModal
 
 interface FormaSectionProps {
   data: DissectionQuestion[];
+  isMultiYear?: boolean;
 }
 
-export function FormaSection({ data }: FormaSectionProps) {
+export function FormaSection({ data, isMultiYear }: FormaSectionProps) {
   const total = data.length;
   const imageQs = data.filter((q) => q.images.length > 0);
   const [selectedQuestion, setSelectedQuestion] = useState<DissectionQuestion | null>(null);
 
   const navigateQuestion = (direction: "prev" | "next") => {
     if (!selectedQuestion) return;
-    const idx = imageQs.findIndex((q) => q.number === selectedQuestion.number);
+    const idx = imageQs.findIndex(
+      (q) => q.year === selectedQuestion.year && q.number === selectedQuestion.number
+    );
     const newIdx =
       direction === "prev"
         ? (idx - 1 + imageQs.length) % imageQs.length
@@ -74,11 +77,14 @@ export function FormaSection({ data }: FormaSectionProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {imageQs.map((q) => (
             <button
-              key={q.number}
+              key={`${q.year}-${q.number}`}
               onClick={() => setSelectedQuestion(q)}
               className="text-left bg-background border border-border rounded-lg p-3 transition-all duration-150 hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-sm"
             >
               <div className="flex items-center gap-2 mb-1">
+                {isMultiYear && (
+                  <span className="text-[10px] font-mono text-text-muted">{q.year}</span>
+                )}
                 <span className="text-xs font-mono text-primary">Q{q.number}</span>
                 <span className="text-xs px-2 py-0.5 rounded-full bg-accent-orange/10 text-accent-orange-dark">
                   {formatLabel(q.imageType)}

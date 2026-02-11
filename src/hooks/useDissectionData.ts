@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import type { DissectionQuestion } from "@/types/dissection";
 
-export function useDissectionData(year: number) {
+export function useDissectionData(yearParam: string) {
   const [data, setData] = useState<DissectionQuestion[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,9 +13,11 @@ export function useDissectionData(year: number) {
     setIsLoading(true);
     setError(null);
 
-    fetch(`/data/dissection-${year}.json`, { signal: controller.signal })
+    const file = `/data/dissection-${yearParam}.json`;
+
+    fetch(file, { signal: controller.signal })
       .then((res) => {
-        if (!res.ok) throw new Error(`Disección ${year} no encontrada`);
+        if (!res.ok) throw new Error(`Disección ${yearParam} no encontrada`);
         return res.json();
       })
       .then((questions: DissectionQuestion[]) => {
@@ -29,7 +31,7 @@ export function useDissectionData(year: number) {
       });
 
     return () => controller.abort();
-  }, [year]);
+  }, [yearParam]);
 
   return { data, isLoading, error };
 }

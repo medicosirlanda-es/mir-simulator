@@ -16,4 +16,5 @@ export const STORAGE_KEYS = {
 
 export const PRACTICE_QUESTION_COUNTS = [10, 25, 50] as const;
 
-export const DISSECTION_YEARS = [2024] as const;
+export const DISSECTION_YEARS = [2020, 2021, 2022, 2023, 2024] as const;
+export const DISSECTION_YEAR_PARAMS = [...DISSECTION_YEARS.map(String), "all"] as const;

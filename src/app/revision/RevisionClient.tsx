@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { ArrowLeft } from "lucide-react";
+import { Header } from "@/components/layout/Header";
 import { useReviewData } from "@/hooks/useReviewData";
 import { useReviewState } from "@/hooks/useReviewState";
 import {
@@ -178,27 +179,35 @@ export function RevisionClient() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-        <div className="text-center space-y-3">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-text-muted">Cargando preguntas...</p>
+      <>
+        <Header />
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="text-center space-y-3">
+            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-sm text-text-muted">Cargando preguntas...</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-        <div className="text-center space-y-2">
-          <p className="text-error font-medium">Error al cargar datos</p>
-          <p className="text-sm text-text-muted">{error}</p>
+      <>
+        <Header />
+        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
+          <div className="text-center space-y-2">
+            <p className="text-error font-medium">Error al cargar datos</p>
+            <p className="text-sm text-text-muted">{error}</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
+    <>
+    <Header />
     <div className="flex h-[calc(100vh-4rem)]">
       {/* LEFT PANEL — Question list */}
       <div
@@ -284,5 +293,6 @@ export function RevisionClient() {
         )}
       </div>
     </div>
+    </>
   );
 }

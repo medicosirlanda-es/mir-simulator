@@ -9,9 +9,10 @@ import { HeatmapTable } from "@/components/charts/HeatmapTable";
 
 interface CognicionSectionProps {
   data: DissectionQuestion[];
+  onSpecialtyClick?: (specialty: string) => void;
 }
 
-export function CognicionSection({ data }: CognicionSectionProps) {
+export function CognicionSection({ data, onSpecialtyClick }: CognicionSectionProps) {
   const total = data.length;
 
   return (
@@ -54,6 +55,7 @@ export function CognicionSection({ data }: CognicionSectionProps) {
           questions={data}
           rowKey="specialty"
           colKey="reasoningType"
+          onRowClick={onSpecialtyClick}
         />
       </ChartCard>
     </div>

@@ -7,9 +7,12 @@ import { CodeBarList } from "@/components/charts/CodeBarList";
 
 interface CodigosSectionProps {
   data: DissectionQuestion[];
+  onSnomedClick?: (display: string) => void;
+  onIcd10Click?: (code: string) => void;
+  onAtcClick?: (label: string) => void;
 }
 
-export function CodigosSection({ data }: CodigosSectionProps) {
+export function CodigosSection({ data, onSnomedClick, onIcd10Click, onAtcClick }: CodigosSectionProps) {
   // ICD-10 aggregation
   const icd10Counts: Record<string, number> = {};
   for (const q of data) {
@@ -40,33 +43,33 @@ export function CodigosSection({ data }: CodigosSectionProps) {
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         <ChartCard title="SNOMED-CT — Foco clínico (top 15)">
-          <CodeBarList data={topSnomedByRole(data, "clinicalFocus")} />
+          <CodeBarList data={topSnomedByRole(data, "clinicalFocus")} onItemClick={onSnomedClick} />
         </ChartCard>
         <ChartCard title="SNOMED-CT — Hallazgos (top 15)">
-          <CodeBarList data={topSnomedByRole(data, "findings")} />
+          <CodeBarList data={topSnomedByRole(data, "findings")} onItemClick={onSnomedClick} />
         </ChartCard>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         <ChartCard title="SNOMED-CT — Procedimientos (top 15)">
-          <CodeBarList data={topSnomedByRole(data, "procedures")} />
+          <CodeBarList data={topSnomedByRole(data, "procedures")} onItemClick={onSnomedClick} />
         </ChartCard>
         <ChartCard title="SNOMED-CT — Fármacos (top 15)">
-          <CodeBarList data={topSnomedByRole(data, "pharmaceuticals")} />
+          <CodeBarList data={topSnomedByRole(data, "pharmaceuticals")} onItemClick={onSnomedClick} />
         </ChartCard>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         <ChartCard title="SNOMED-CT — Anatomía (top 15)">
-          <CodeBarList data={topSnomedByRole(data, "anatomy")} />
+          <CodeBarList data={topSnomedByRole(data, "anatomy")} onItemClick={onSnomedClick} />
         </ChartCard>
         <ChartCard title="ICD-10 (top 15)">
-          <CodeBarList data={topIcd} />
+          <CodeBarList data={topIcd} onItemClick={onIcd10Click} />
         </ChartCard>
       </div>
 
       <ChartCard title="ATC — Fármacos (top 15)">
-        <CodeBarList data={topAtc} />
+        <CodeBarList data={topAtc} onItemClick={onAtcClick} />
       </ChartCard>
     </div>
   );

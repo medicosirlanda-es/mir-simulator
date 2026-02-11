@@ -9,9 +9,10 @@ import { HeatmapTable } from "@/components/charts/HeatmapTable";
 
 interface ClinicaSectionProps {
   data: DissectionQuestion[];
+  onSpecialtyClick?: (specialty: string) => void;
 }
 
-export function ClinicaSection({ data }: ClinicaSectionProps) {
+export function ClinicaSection({ data, onSpecialtyClick }: ClinicaSectionProps) {
   const total = data.length;
 
   return (
@@ -44,6 +45,7 @@ export function ClinicaSection({ data }: ClinicaSectionProps) {
             questions={data}
             rowKey="specialty"
             colKey="clinicalTask"
+            onRowClick={onSpecialtyClick}
           />
         </ChartCard>
         <ChartCard title="Especialidad × Entorno">
@@ -51,6 +53,7 @@ export function ClinicaSection({ data }: ClinicaSectionProps) {
             questions={data}
             rowKey="specialty"
             colKey="setting"
+            onRowClick={onSpecialtyClick}
           />
         </ChartCard>
       </div>

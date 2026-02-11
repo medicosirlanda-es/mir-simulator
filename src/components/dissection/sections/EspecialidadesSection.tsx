@@ -12,9 +12,10 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 interface EspecialidadesSectionProps {
   data: DissectionQuestion[];
   onNavigateToExplorer: (filters: DissectionFilters) => void;
+  onSpecialtyClick?: (specialty: string) => void;
 }
 
-export function EspecialidadesSection({ data, onNavigateToExplorer }: EspecialidadesSectionProps) {
+export function EspecialidadesSection({ data, onNavigateToExplorer, onSpecialtyClick }: EspecialidadesSectionProps) {
   const total = data.length;
   const specEntries = sortedEntries(countBy(data, "specialty"));
   const [expandedSpec, setExpandedSpec] = useState<string | null>(null);
@@ -29,7 +30,7 @@ export function EspecialidadesSection({ data, onNavigateToExplorer }: Especialid
               data={specEntries}
               total={total}
               height={Math.max(450, specEntries.length * 22)}
-              onBarClick={(key) => onNavigateToExplorer({ specialty: key })}
+              onBarClick={(key) => onSpecialtyClick ? onSpecialtyClick(key) : onNavigateToExplorer({ specialty: key })}
             />
           </ChartCard>
         </div>
@@ -39,6 +40,7 @@ export function EspecialidadesSection({ data, onNavigateToExplorer }: Especialid
               questions={data}
               rowKey="specialty"
               colKey="cognitiveLevel"
+              onRowClick={onSpecialtyClick}
             />
           </ChartCard>
         </div>

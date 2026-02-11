@@ -12,9 +12,10 @@ interface PanoramaSectionProps {
   data: DissectionQuestion[];
   yearLabel: string;
   onNavigateToExplorer: (filters: DissectionFilters) => void;
+  onSpecialtyClick?: (specialty: string) => void;
 }
 
-export function PanoramaSection({ data, yearLabel, onNavigateToExplorer }: PanoramaSectionProps) {
+export function PanoramaSection({ data, yearLabel, onNavigateToExplorer, onSpecialtyClick }: PanoramaSectionProps) {
   const total = data.length;
   const specCount = new Set(data.map((q) => q.specialty)).size;
   const imgCount = data.filter((q) => q.images.length > 0).length;
@@ -48,7 +49,7 @@ export function PanoramaSection({ data, yearLabel, onNavigateToExplorer }: Panor
               data={specEntries}
               total={total}
               height={Math.max(420, specEntries.length * 22)}
-              onBarClick={(key) => onNavigateToExplorer({ specialty: key })}
+              onBarClick={(key) => onSpecialtyClick ? onSpecialtyClick(key) : onNavigateToExplorer({ specialty: key })}
             />
           </ChartCard>
         </div>

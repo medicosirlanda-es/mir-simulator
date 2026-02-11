@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Container } from "@/components/ui/Container";
 import { DissectionHeader } from "@/components/dissection/DissectionHeader";
 import { DissectionTabBar } from "@/components/dissection/DissectionTabBar";
+import { DrillDownModal } from "@/components/dissection/DrillDownModal";
 import { PanoramaSection } from "@/components/dissection/sections/PanoramaSection";
 import { EspecialidadesSection } from "@/components/dissection/sections/EspecialidadesSection";
 import { FormaSection } from "@/components/dissection/sections/FormaSection";
@@ -17,17 +18,22 @@ import { ExploradorSection } from "@/components/dissection/sections/ExploradorSe
 import { useDissectionData } from "@/hooks/useDissectionData";
 import { DISSECTION_YEARS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import type { DissectionTab, DissectionFilters } from "@/types/dissection";
+import type { DissectionTab, DissectionFilters, DissectionQuestion } from "@/types/dissection";
 import { Loader2 } from "lucide-react";
+
+interface DrillDownState {
+  title: string;
+  questions: DissectionQuestion[];
+}
 
 export function DissectionClient({ yearParam }: { yearParam: string }) {
   const router = useRouter();
   const { data, isLoading, error } = useDissectionData(yearParam);
   const [activeTab, setActiveTab] = useState<DissectionTab>("panorama");
   const [explorerFilters, setExplorerFilters] = useState<DissectionFilters>({});
+  const [drillDown, setDrillDown] = useState<DrillDownState | null>(null);
 
   const isAll = yearParam === "all";
-  const yearNum = isAll ? null : parseInt(yearParam, 10);
   const yearLabel = isAll ? "2020–2024" : yearParam;
 
   const navigateToExplorer = useCallback((filters: DissectionFilters) => {
@@ -46,6 +52,61 @@ export function DissectionClient({ yearParam }: { yearParam: string }) {
       router.push(`/diseccion/${year}`);
     },
     [router]
+  );
+
+  // Drill-down: filter questions by a field+value and open modal
+  const handleDrillDown = useCallback(
+    (title: string, filterFn: (q: DissectionQuestion) => boolean) => {
+      if (!data) return;
+      const filtered = data.filter(filterFn);
+      if (filtered.length > 0) {
+        setDrillDown({ title, questions: filtered });
+      }
+    },
+    [data]
+  );
+
+  // Convenience: drill-down by specialty name
+  const handleSpecialtyDrillDown = useCallback(
+    (specialty: string) => {
+      handleDrillDown(specialty, (q) => q.specialty === specialty);
+    },
+    [handleDrillDown]
+  );
+
+  // Convenience: drill-down by SNOMED display name
+  const handleSnomedDrillDown = useCallback(
+    (display: string) => {
+      handleDrillDown(`SNOMED: ${display}`, (q) =>
+        Object.values(q.snomed).some((entries) =>
+          entries.some((e: { code: string; display: string }) => e.display === display || e.code === display)
+        )
+      );
+    },
+    [handleDrillDown]
+  );
+
+  // Convenience: drill-down by ICD-10 code
+  const handleIcd10DrillDown = useCallback(
+    (code: string) => {
+      handleDrillDown(`ICD-10: ${code}`, (q) => q.icd10.includes(code));
+    },
+    [handleDrillDown]
+  );
+
+  // Convenience: drill-down by ATC code/label
+  const handleAtcDrillDown = useCallback(
+    (label: string) => {
+      // ATC codes in CodeBarList may have format "C07AB — Atenolol"
+      const code = label.split(" — ")[0].trim();
+      handleDrillDown(`ATC: ${label}`, (q) =>
+        q.atc.includes(code) ||
+        (q.snomed?.pharmaceuticals ?? []).some(
+          (p: { code: string; display: string; atc?: string }) => p.atc === code || `${p.atc} — ${p.display}` === label
+        )
+      );
+    },
+    [handleDrillDown]
   );
 
   if (isLoading) {
@@ -121,15 +182,43 @@ export function DissectionClient({ yearParam }: { yearParam: string }) {
             </div>
 
             {activeTab === "panorama" && (
-              <PanoramaSection data={data} yearLabel={yearLabel} onNavigateToExplorer={navigateToExplorer} />
+              <PanoramaSection
+                data={data}
+                yearLabel={yearLabel}
+                onNavigateToExplorer={navigateToExplorer}
+                onSpecialtyClick={handleSpecialtyDrillDown}
+              />
             )}
             {activeTab === "especialidades" && (
-              <EspecialidadesSection data={data} onNavigateToExplorer={navigateToExplorer} />
+              <EspecialidadesSection
+                data={data}
+                onNavigateToExplorer={navigateToExplorer}
+                onSpecialtyClick={handleSpecialtyDrillDown}
+              />
             )}
-            {activeTab === "forma" && <FormaSection data={data} isMultiYear={isAll} />}
-            {activeTab === "cognicion" && <CognicionSection data={data} />}
-            {activeTab === "clinica" && <ClinicaSection data={data} />}
-            {activeTab === "codigos" && <CodigosSection data={data} />}
+            {activeTab === "forma" && (
+              <FormaSection data={data} isMultiYear={isAll} />
+            )}
+            {activeTab === "cognicion" && (
+              <CognicionSection
+                data={data}
+                onSpecialtyClick={handleSpecialtyDrillDown}
+              />
+            )}
+            {activeTab === "clinica" && (
+              <ClinicaSection
+                data={data}
+                onSpecialtyClick={handleSpecialtyDrillDown}
+              />
+            )}
+            {activeTab === "codigos" && (
+              <CodigosSection
+                data={data}
+                onSnomedClick={handleSnomedDrillDown}
+                onIcd10Click={handleIcd10DrillDown}
+                onAtcClick={handleAtcDrillDown}
+              />
+            )}
             {activeTab === "explorador" && (
               <ExploradorSection
                 data={data}
@@ -142,6 +231,15 @@ export function DissectionClient({ yearParam }: { yearParam: string }) {
         </main>
       </div>
       <Footer />
+
+      {/* Drill-down modal */}
+      {drillDown && (
+        <DrillDownModal
+          title={drillDown.title}
+          questions={drillDown.questions}
+          onClose={() => setDrillDown(null)}
+        />
+      )}
     </>
   );
 }

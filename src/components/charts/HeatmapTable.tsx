@@ -3,14 +3,16 @@
 import { formatLabel } from "@/lib/dissection-utils";
 import type { DissectionQuestion } from "@/types/dissection";
 import { crossTabulate } from "@/lib/dissection-utils";
+import { cn } from "@/lib/utils";
 
 interface HeatmapTableProps {
   questions: DissectionQuestion[];
   rowKey: keyof DissectionQuestion;
   colKey: keyof DissectionQuestion;
+  onRowClick?: (rawValue: string) => void;
 }
 
-export function HeatmapTable({ questions, rowKey, colKey }: HeatmapTableProps) {
+export function HeatmapTable({ questions, rowKey, colKey, onRowClick }: HeatmapTableProps) {
   const { rows, cols, matrix, max } = crossTabulate(questions, rowKey, colKey);
 
   return (
@@ -35,8 +37,19 @@ export function HeatmapTable({ questions, rowKey, colKey }: HeatmapTableProps) {
                 key={r}
                 className="border-t border-border/50 hover:bg-primary/[0.03] transition-colors duration-150"
               >
-                <td className="p-2 text-text-primary font-medium whitespace-nowrap">
-                  {formatLabel(r)}
+                <td className="p-2 whitespace-nowrap">
+                  {onRowClick ? (
+                    <button
+                      onClick={() => onRowClick(r)}
+                      className="text-text-primary font-medium hover:text-primary transition-colors text-left"
+                    >
+                      {formatLabel(r)}
+                    </button>
+                  ) : (
+                    <span className="text-text-primary font-medium">
+                      {formatLabel(r)}
+                    </span>
+                  )}
                 </td>
                 {cols.map((c) => {
                   const v = matrix[r][c] || 0;

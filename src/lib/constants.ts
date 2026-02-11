@@ -11,6 +11,7 @@ export const STORAGE_KEYS = {
   QUIZ_STATE: (year: number) => `mir-quiz-${year}`,
   QUIZ_RESULTS: "mir-results-history",
   PRACTICE_STATE: "mir-practice-state",
+  REVIEW_STATE: "mir-review-state-v1",
 } as const;
 
 export const PRACTICE_QUESTION_COUNTS = [10, 25, 50] as const;

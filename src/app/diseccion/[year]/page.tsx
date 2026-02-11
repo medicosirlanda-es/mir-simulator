@@ -12,7 +12,7 @@ export function generateMetadata({
   params: Promise<{ year: string }>;
 }): Promise<Metadata> {
   return params.then(({ year }) => {
-    const label = year === "all" ? "2020–2024" : year;
+    const label = year === "all" ? "2020–2025" : year;
     return {
       title: `Disección MIR ${label}`,
       description: `Análisis estadístico completo del examen MIR ${label}: distribución por especialidad, tipo de pregunta, nivel cognitivo, codificación SNOMED-CT, ICD-10, ATC.`,

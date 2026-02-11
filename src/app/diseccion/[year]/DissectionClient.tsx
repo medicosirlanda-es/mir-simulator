@@ -34,7 +34,7 @@ export function DissectionClient({ yearParam }: { yearParam: string }) {
   const [drillDown, setDrillDown] = useState<DrillDownState | null>(null);
 
   const isAll = yearParam === "all";
-  const yearLabel = isAll ? "2020–2024" : yearParam;
+  const yearLabel = isAll ? "2020–2025" : yearParam;
 
   const navigateToExplorer = useCallback((filters: DissectionFilters) => {
     setExplorerFilters(filters);
@@ -163,7 +163,7 @@ export function DissectionClient({ yearParam }: { yearParam: string }) {
                     : "text-text-muted hover:bg-background border-transparent hover:border-border"
                 )}
               >
-                Todos (2020–2024)
+                Todos (2020–2025)
               </button>
               {DISSECTION_YEARS.map((y) => (
                 <button

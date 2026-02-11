@@ -1,48 +1,33 @@
 {
   "years": [
-    2020,
-    2021,
-    2022,
-    2023,
-    2024,
-    "all"
-  ],
-  "exams": [
     {
       "year": 2020,
-      "totalQuestions": 185,
-      "specialtyCount": 37,
-      "imageCount": 25
+      "file": "dissection-2020.json",
+      "count": 185
     },
     {
       "year": 2021,
-      "totalQuestions": 210,
-      "specialtyCount": 42,
-      "imageCount": 25
+      "file": "dissection-2021.json",
+      "count": 210
     },
     {
       "year": 2022,
-      "totalQuestions": 210,
-      "specialtyCount": 37,
-      "imageCount": 25
+      "file": "dissection-2022.json",
+      "count": 210
     },
     {
       "year": 2023,
-      "totalQuestions": 210,
-      "specialtyCount": 39,
-      "imageCount": 25
+      "file": "dissection-2023.json",
+      "count": 210
     },
     {
       "year": 2024,
-      "totalQuestions": 210,
-      "specialtyCount": 41,
-      "imageCount": 25
-    },
-    {
-      "year": "all",
-      "totalQuestions": 1025,
-      "specialtyCount": 46,
-      "imageCount": 125
+      "file": "dissection-2024.json",
+      "count": 210
     }
-  ]
+  ],
+  "all": {
+    "file": "dissection-all.json",
+    "count": 1025
+  }
 }

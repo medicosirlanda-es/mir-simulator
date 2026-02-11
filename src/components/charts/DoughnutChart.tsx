@@ -42,8 +42,8 @@ export function DoughnutChart({ data, total, height = 260 }: DoughnutChartProps)
             name,
           ]}
           contentStyle={{
-            backgroundColor: "#FFFFFF",
-            border: "1px solid #E2E8F0",
+            backgroundColor: "var(--color-surface, #FFFFFF)",
+            border: "1px solid var(--color-border, #E2E8F0)",
             borderRadius: 10,
             fontSize: 13,
             boxShadow: "0 4px 12px rgba(0,0,0,0.1)",

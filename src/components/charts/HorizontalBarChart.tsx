@@ -30,6 +30,10 @@ export function HorizontalBarChart({
     value,
   }));
 
+  // Compute YAxis width from longest label (approx 7px per char at 11px font)
+  const maxLabelLen = Math.max(...chartData.map((d) => d.name.length));
+  const yAxisWidth = Math.min(280, Math.max(120, maxLabelLen * 7 + 16));
+
   return (
     <ResponsiveContainer width="100%" height={height}>
       <BarChart
@@ -37,12 +41,17 @@ export function HorizontalBarChart({
         layout="vertical"
         margin={{ top: 0, right: 24, bottom: 0, left: 0 }}
       >
-        <XAxis type="number" tick={{ fontSize: 11, fill: "#4A5568" }} axisLine={false} tickLine={false} />
+        <XAxis
+          type="number"
+          tick={{ fontSize: 11, fill: "var(--color-text-secondary, #4A5568)" }}
+          axisLine={false}
+          tickLine={false}
+        />
         <YAxis
           type="category"
           dataKey="name"
-          width={160}
-          tick={{ fontSize: 12, fill: "#1A202C" }}
+          width={yAxisWidth}
+          tick={{ fontSize: 11, fill: "var(--color-text-primary, #1A202C)" }}
           axisLine={false}
           tickLine={false}
         />
@@ -52,8 +61,8 @@ export function HorizontalBarChart({
             "",
           ]}
           contentStyle={{
-            backgroundColor: "#FFFFFF",
-            border: "1px solid #E2E8F0",
+            backgroundColor: "var(--color-surface, #FFFFFF)",
+            border: "1px solid var(--color-border, #E2E8F0)",
             borderRadius: 10,
             fontSize: 13,
             boxShadow: "0 4px 12px rgba(0,0,0,0.1)",

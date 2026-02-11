@@ -54,6 +54,7 @@ export function HorizontalBarChart({
           tick={{ fontSize: 11, fill: "var(--color-text-primary, #1A202C)" }}
           axisLine={false}
           tickLine={false}
+          interval={0}
         />
         <Tooltip
           formatter={(value) => [

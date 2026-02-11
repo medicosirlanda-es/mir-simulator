@@ -82,7 +82,11 @@ export const CHART_PALETTE = [
 
 export function formatLabel(value: string | null | undefined): string {
   if (!value) return "—";
-  return LABELS[value] ?? value.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  if (LABELS[value]) return LABELS[value];
+  // Capitalize first letter of each space-separated word (Unicode-safe — \b\w breaks on accented chars)
+  return value
+    .replace(/_/g, " ")
+    .replace(/(^|\s)\S/g, (c) => c.toUpperCase());
 }
 
 export function countBy<T>(items: T[], key: keyof T): Record<string, number> {

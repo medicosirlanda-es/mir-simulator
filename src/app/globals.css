@@ -136,6 +136,42 @@ html {
   font-family: var(--font-heading);
 }
 
+/* ===== ECG / Hero animations ===== */
+@keyframes ecgDraw {
+  0% { stroke-dashoffset: var(--ecg-length, 4000); opacity: 0; }
+  5% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.3); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes floatParticle {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.6; }
+  25% { transform: translate(10px, -20px) rotate(45deg); opacity: 1; }
+  50% { transform: translate(-5px, -35px) rotate(90deg); opacity: 0.4; }
+  75% { transform: translate(15px, -15px) rotate(135deg); opacity: 0.8; }
+}
+
+/* ECG trace — stroke-dashoffset animation via class */
+.ecg-trace {
+  --ecg-length: 4000;
+  stroke-dasharray: 4000;
+  stroke-dashoffset: 4000;
+  animation: ecgDraw 6s linear infinite;
+}
+
+@utility animate-pulse-ring {
+  animation: pulseRing 3s ease-out infinite;
+}
+
+@utility animate-float-particle {
+  animation: floatParticle 12s ease-in-out infinite;
+}
+
 /* Keyframe animations */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -182,6 +218,30 @@ html {
   animation: countUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
+/* Hero orb animations — subtle floating movement */
+@keyframes heroOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.05); }
+}
+@keyframes heroOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-20px, 15px) scale(1.08); }
+}
+@keyframes heroOrb3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-15px, 25px) scale(1.03); }
+}
+
+@utility animate-hero-orb-1 {
+  animation: heroOrb1 8s ease-in-out infinite;
+}
+@utility animate-hero-orb-2 {
+  animation: heroOrb2 10s ease-in-out infinite;
+}
+@utility animate-hero-orb-3 {
+  animation: heroOrb3 12s ease-in-out infinite;
+}
+
 /* Stagger delays — wider spacing for perceptible effect */
 @utility stagger-1 { animation-delay: 80ms; }
 @utility stagger-2 { animation-delay: 160ms; }
@@ -198,6 +258,19 @@ html {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .animate-hero-orb-1,
+  .animate-hero-orb-2,
+  .animate-hero-orb-3,
+  .animate-pulse-ring,
+  .animate-float-particle {
+    animation: none;
+  }
+
+  .ecg-trace {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 
   .stagger-1,

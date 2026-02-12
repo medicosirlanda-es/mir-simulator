@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/Container";
-import { BookOpen, Menu, X } from "lucide-react";
-import { APP_NAME } from "@/lib/constants";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -24,11 +24,17 @@ export function Header() {
       <Container className="flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-heading font-bold text-lg hover:opacity-90 transition-opacity"
-          aria-label="Simulador MIR - Inicio"
+          className="flex items-center hover:opacity-90 transition-opacity"
+          aria-label="MIR Online - Inicio"
         >
-          <BookOpen className="h-6 w-6" aria-hidden="true" />
-          <span>{APP_NAME}</span>
+          <Image
+            src="/images/logo-horizontal-white.png"
+            alt="MIR Online"
+            width={140}
+            height={48}
+            className="h-9 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}

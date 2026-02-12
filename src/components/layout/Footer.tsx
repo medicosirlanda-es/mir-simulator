@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { EXAM_YEAR_START, EXAM_YEAR_END } from "@/lib/constants";
-import { BookOpen } from "lucide-react";
 
 export function Footer() {
   return (
@@ -10,9 +10,14 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 font-heading font-bold text-text-primary mb-3">
-              <BookOpen className="h-5 w-5 text-primary" aria-hidden="true" />
-              <span>Simulador MIR</span>
+            <div className="mb-3">
+              <Image
+                src="/images/logo-horizontal.png"
+                alt="MIR Online"
+                width={140}
+                height={48}
+                className="h-8 w-auto"
+              />
             </div>
             <p className="text-sm text-text-muted leading-relaxed">
               Preguntas oficiales del Ministerio de Sanidad ({EXAM_YEAR_START}-{EXAM_YEAR_END}).

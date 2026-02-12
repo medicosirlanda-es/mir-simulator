@@ -53,6 +53,26 @@ export function RevisionClient() {
     () => uniqueValues(allQuestions, "specialty"),
     [allQuestions]
   );
+  const questionTypes = useMemo(
+    () => uniqueValues(allQuestions, "questionType"),
+    [allQuestions]
+  );
+  const cognitiveLevels = useMemo(
+    () => uniqueValues(allQuestions, "cognitiveLevel"),
+    [allQuestions]
+  );
+  const clinicalTasks = useMemo(
+    () => uniqueValues(allQuestions, "clinicalTask"),
+    [allQuestions]
+  );
+  const populations = useMemo(
+    () => uniqueValues(allQuestions, "population"),
+    [allQuestions]
+  );
+  const settingValues = useMemo(
+    () => uniqueValues(allQuestions, "setting"),
+    [allQuestions]
+  );
   const stats = useMemo(() => computeStats(), [computeStats]);
 
   const currentQuestion = filtered[selectedIndex] ?? null;
@@ -62,7 +82,7 @@ export function RevisionClient() {
   // Clamp index when filters change
   useEffect(() => {
     setSelectedIndex(0);
-  }, [filters.year, filters.specialty, filters.status, filters.tag?.field, filters.tag?.value, filters.search]);
+  }, [filters.year, filters.specialty, filters.status, filters.questionType, filters.cognitiveLevel, filters.clinicalTask, filters.population, filters.setting, filters.tag?.field, filters.tag?.value, filters.search]);
 
   // Handle tag click from detail panel
   const handleTagClick = useCallback(
@@ -211,7 +231,7 @@ export function RevisionClient() {
     <div className="flex h-[calc(100vh-4rem)]">
       {/* LEFT PANEL — Question list */}
       <div
-        className={`w-80 lg:w-96 border-r border-border flex flex-col shrink-0 bg-surface ${
+        className={`w-[22rem] lg:w-[26rem] border-r border-border flex flex-col shrink-0 bg-surface ${
           mobileShowDetail ? "hidden md:flex" : "flex"
         }`}
       >
@@ -219,15 +239,25 @@ export function RevisionClient() {
           filters={filters}
           years={years}
           specialties={specialties}
+          questionTypes={questionTypes}
+          cognitiveLevels={cognitiveLevels}
+          clinicalTasks={clinicalTasks}
+          populations={populations}
+          settings={settingValues}
           onYearChange={(year) => setFilters((f) => ({ ...f, year }))}
           onSpecialtyChange={(specialty) => setFilters((f) => ({ ...f, specialty }))}
           onStatusChange={(status) => setFilters((f) => ({ ...f, status }))}
+          onQuestionTypeChange={(questionType) => setFilters((f) => ({ ...f, questionType }))}
+          onCognitiveLevelChange={(cognitiveLevel) => setFilters((f) => ({ ...f, cognitiveLevel }))}
+          onClinicalTaskChange={(clinicalTask) => setFilters((f) => ({ ...f, clinicalTask }))}
+          onPopulationChange={(population) => setFilters((f) => ({ ...f, population }))}
+          onSettingChange={(setting) => setFilters((f) => ({ ...f, setting }))}
           onSearchChange={(search) => setFilters((f) => ({ ...f, search }))}
         />
 
         {/* Active tag filter */}
         {filters.tag && (
-          <div className="px-3 py-2 border-b border-border/50">
+          <div className="px-4 py-2.5 border-b border-border/50 bg-primary/[0.03]">
             <ActiveFilterChip
               label={filters.tag.label}
               value={filters.tag.value}
@@ -264,7 +294,7 @@ export function RevisionClient() {
         </button>
 
         {currentQuestion ? (
-          <div className="p-4 md:p-6 max-w-4xl mx-auto w-full">
+          <div className="p-5 md:p-8 max-w-4xl mx-auto w-full">
             <QuestionDetail
               question={currentQuestion}
               similar={currentSimilar}

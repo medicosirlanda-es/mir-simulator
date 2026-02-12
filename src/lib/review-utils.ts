@@ -40,6 +40,11 @@ export interface ReviewFiltersState {
   year: number | null;
   specialty: string;
   status: string; // "" | "approved" | "flagged" | "rejected" | "unreviewed"
+  questionType: string;
+  cognitiveLevel: string;
+  clinicalTask: string;
+  population: string;
+  setting: string;
   search: string;
   tag: TagFilter | null;
 }
@@ -48,6 +53,11 @@ export const INITIAL_FILTERS: ReviewFiltersState = {
   year: null,
   specialty: "",
   status: "",
+  questionType: "",
+  cognitiveLevel: "",
+  clinicalTask: "",
+  population: "",
+  setting: "",
   search: "",
   tag: null,
 };
@@ -76,6 +86,31 @@ export function filterQuestions(
       if (filters.status === "unreviewed") return s === null;
       return s === filters.status;
     });
+  }
+
+  // Question type filter
+  if (filters.questionType) {
+    result = result.filter((q) => q.questionType === filters.questionType);
+  }
+
+  // Cognitive level filter
+  if (filters.cognitiveLevel) {
+    result = result.filter((q) => q.cognitiveLevel === filters.cognitiveLevel);
+  }
+
+  // Clinical task filter
+  if (filters.clinicalTask) {
+    result = result.filter((q) => q.clinicalTask === filters.clinicalTask);
+  }
+
+  // Population filter
+  if (filters.population) {
+    result = result.filter((q) => q.population === filters.population);
+  }
+
+  // Setting filter
+  if (filters.setting) {
+    result = result.filter((q) => q.setting === filters.setting);
   }
 
   // Tag filter (field + value match)

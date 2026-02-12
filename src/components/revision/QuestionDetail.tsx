@@ -37,21 +37,23 @@ export function QuestionDetail({
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <span className="text-lg font-mono text-primary bg-primary/10 px-3 py-1.5 rounded-lg font-semibold">
+      <div className="flex items-center gap-4">
+        <span className="text-xl font-mono text-primary bg-primary/10 px-4 py-2 rounded-xl font-bold tracking-tight">
           Q{q.number}
         </span>
-        <span className="text-sm text-text-muted">MIR {q.year}</span>
-        <span className="text-xs text-text-muted ml-auto">
-          {q.source === "mir_oficial" ? "Oficial" : q.source}
-        </span>
+        <div className="flex flex-col">
+          <span className="text-base font-semibold text-text-primary font-heading">MIR {q.year}</span>
+          <span className="text-xs text-text-muted">
+            {q.source === "mir_oficial" ? "Pregunta oficial" : q.source}
+          </span>
+        </div>
       </div>
 
       {/* Section 1: Question content */}
-      <div className="bg-surface rounded-xl border border-border p-5">
+      <div className="bg-surface rounded-2xl border border-border p-6">
         <SafeHtml
           html={q.textHtml || q.text}
-          className="text-text-primary leading-relaxed text-sm md:text-base prose-sm"
+          className="text-text-primary leading-relaxed text-[15px] md:text-base"
         />
 
         {/* Images */}
@@ -73,21 +75,21 @@ export function QuestionDetail({
         )}
 
         {/* Answers */}
-        <div className="space-y-2 mt-5">
+        <div className="space-y-2.5 mt-6">
           {q.answers.map((a) => (
             <div
               key={a.order}
               className={cn(
-                "rounded-lg p-3 border",
+                "rounded-xl p-4 border transition-colors",
                 a.isCorrect
                   ? "bg-success-light/50 border-success/30"
                   : "bg-background border-border"
               )}
             >
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-3">
                 <span
                   className={cn(
-                    "text-xs font-mono mt-0.5",
+                    "text-sm font-mono font-semibold mt-0.5 w-6 shrink-0",
                     a.isCorrect ? "text-success-dark" : "text-text-muted"
                   )}
                 >
@@ -96,7 +98,7 @@ export function QuestionDetail({
                 <div className="flex-1">
                   <p
                     className={cn(
-                      "text-sm",
+                      "text-[15px] leading-relaxed",
                       a.isCorrect
                         ? "text-success-dark font-medium"
                         : "text-text-primary"
@@ -105,13 +107,13 @@ export function QuestionDetail({
                     {a.text}
                   </p>
                   {a.distractorAnalysis && (
-                    <p className="text-xs mt-1.5 text-warning-dark italic leading-relaxed">
+                    <p className="text-xs mt-2 text-warning-dark italic leading-relaxed">
                       {a.distractorAnalysis}
                     </p>
                   )}
                 </div>
                 {a.isCorrect && (
-                  <span className="text-success-dark text-[10px] font-bold uppercase tracking-wider shrink-0">
+                  <span className="text-success-dark text-[11px] font-bold uppercase tracking-wider shrink-0 bg-success/10 px-2 py-1 rounded-md">
                     Correcta
                   </span>
                 )}
@@ -122,11 +124,11 @@ export function QuestionDetail({
       </div>
 
       {/* Section 2: Classification (clickable tags) */}
-      <div className="bg-surface rounded-xl border border-border p-4">
-        <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+      <div className="bg-surface rounded-2xl border border-border p-5">
+        <h3 className="text-sm font-bold text-text-primary font-heading uppercase tracking-wide mb-4">
           Clasificación
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
           <ClickableTag title="Especialidad" value={q.specialty} type="spec" field="specialty" onTagClick={onTagClick} />
           <ClickableTag title="Subespecialidad" value={q.subspecialty} type="spec" field="subspecialty" onTagClick={onTagClick} />
           <ClickableTag title="Tema" value={q.topic} type="spec" field="topic" onTagClick={onTagClick} />
@@ -146,23 +148,23 @@ export function QuestionDetail({
 
       {/* Section 3: Medical codes (clickable) */}
       {q.snomed && (
-        <div className="bg-surface rounded-xl border border-border p-4">
-          <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+        <div className="bg-surface rounded-2xl border border-border p-5">
+          <h3 className="text-sm font-bold text-text-primary font-heading uppercase tracking-wide mb-4">
             Codificación SNOMED-CT
           </h3>
           {(Object.entries(q.snomed) as [string, { code: string; display: string; atc?: string }[]][]).map(
             ([role, items]) =>
               items.length > 0 && (
-                <div key={role} className="mb-2.5">
-                  <span className="text-[10px] font-semibold text-text-muted uppercase tracking-wider">
+                <div key={role} className="mb-3">
+                  <span className="text-[11px] font-semibold text-text-muted uppercase tracking-wider">
                     {SNOMED_ROLE_LABELS[role] || role}
                   </span>
-                  <div className="flex flex-wrap gap-1 mt-1">
+                  <div className="flex flex-wrap gap-1.5 mt-1.5">
                     {items.map((item, i) => (
                       <button
                         key={i}
                         onClick={() => onTagClick("snomed", item.display || item.code)}
-                        className="text-xs bg-background border border-border px-2 py-0.5 rounded text-text-secondary hover:border-primary/30 hover:bg-primary/5 transition-colors cursor-pointer"
+                        className="text-xs bg-background border border-border px-2.5 py-1 rounded-lg text-text-secondary hover:border-primary/30 hover:bg-primary/5 transition-colors cursor-pointer"
                         title={`SNOMED: ${item.code}`}
                       >
                         {item.display}
@@ -178,13 +180,13 @@ export function QuestionDetail({
 
           {/* ICD-10 */}
           {q.icd10.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3 items-center">
-              <span className="text-xs text-text-muted">ICD-10:</span>
+            <div className="flex flex-wrap gap-2 mt-4 items-center">
+              <span className="text-xs font-semibold text-text-muted">ICD-10:</span>
               {q.icd10.map((c) => (
                 <button
                   key={c}
                   onClick={() => onTagClick("icd10", c)}
-                  className="text-xs bg-[#8b5cf6]/10 text-[#8b5cf6] px-2 py-0.5 rounded hover:bg-[#8b5cf6]/20 transition-colors cursor-pointer"
+                  className="text-xs bg-primary-dark/10 text-primary-dark px-2.5 py-1 rounded-lg hover:bg-primary-dark/20 transition-colors cursor-pointer font-medium"
                 >
                   {c}
                 </button>
@@ -194,13 +196,13 @@ export function QuestionDetail({
 
           {/* ATC */}
           {q.atc.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2 items-center">
-              <span className="text-xs text-text-muted">ATC:</span>
+            <div className="flex flex-wrap gap-2 mt-3 items-center">
+              <span className="text-xs font-semibold text-text-muted">ATC:</span>
               {q.atc.map((c) => (
                 <button
                   key={c}
                   onClick={() => onTagClick("atc", c)}
-                  className="text-xs bg-accent-green/10 text-accent-green-dark px-2 py-0.5 rounded hover:bg-accent-green/20 transition-colors cursor-pointer"
+                  className="text-xs bg-accent-green/10 text-accent-green-dark px-2.5 py-1 rounded-lg hover:bg-accent-green/20 transition-colors cursor-pointer font-medium"
                 >
                   {c}
                 </button>

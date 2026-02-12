@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Check, Flag, X, Download, Upload } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Check, Flag, X, Download, Upload, MessageSquare } from "lucide-react";
 import type { ReviewStatus } from "@/types/review";
 import { cn } from "@/lib/utils";
 
@@ -17,24 +16,27 @@ interface ValidationPanelProps {
   onImport: (file: File) => void;
 }
 
-const STATUS_CONFIG: Record<ReviewStatus, { label: string; icon: typeof Check; style: string; activeStyle: string }> = {
+const STATUS_CONFIG: Record<ReviewStatus, { label: string; icon: typeof Check; style: string; activeStyle: string; kbd: string }> = {
   approved: {
     label: "Aprobar",
     icon: Check,
+    kbd: "A",
     style: "hover:bg-success/10 hover:text-success-dark hover:border-success/30",
-    activeStyle: "bg-success/15 text-success-dark border-success/40",
+    activeStyle: "bg-success/15 text-success-dark border-success/40 shadow-sm shadow-success/10",
   },
   flagged: {
     label: "Flag",
     icon: Flag,
+    kbd: "F",
     style: "hover:bg-warning/10 hover:text-warning-dark hover:border-warning/30",
-    activeStyle: "bg-warning/15 text-warning-dark border-warning/40",
+    activeStyle: "bg-warning/15 text-warning-dark border-warning/40 shadow-sm shadow-warning/10",
   },
   rejected: {
     label: "Rechazar",
     icon: X,
+    kbd: "R",
     style: "hover:bg-error/10 hover:text-error-dark hover:border-error/30",
-    activeStyle: "bg-error/15 text-error-dark border-error/40",
+    activeStyle: "bg-error/15 text-error-dark border-error/40 shadow-sm shadow-error/10",
   },
 };
 
@@ -50,12 +52,10 @@ export function ValidationPanel({
 }: ValidationPanelProps) {
   const [notes, setNotes] = useState(currentNotes);
 
-  // Sync notes when question changes
   useEffect(() => {
     setNotes(currentNotes);
   }, [currentNotes, year, number]);
 
-  // Autosave notes on change (debounced)
   useEffect(() => {
     if (notes === currentNotes) return;
     const timer = setTimeout(() => {
@@ -75,24 +75,24 @@ export function ValidationPanel({
   }
 
   return (
-    <div className="bg-surface rounded-xl border border-border p-4">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider">
-          Validación
+    <div className="bg-surface rounded-2xl border border-border p-5 space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-bold text-text-primary font-heading uppercase tracking-wide">
+          Validacion
         </h3>
-        <div className="flex gap-1">
+        <div className="flex gap-1.5">
           <button
             onClick={onExport}
-            className="p-1.5 text-text-muted hover:text-primary transition-colors rounded-lg hover:bg-background"
+            className="p-2 text-text-muted hover:text-primary transition-colors rounded-lg hover:bg-primary/5 cursor-pointer"
             title="Exportar revisiones"
           >
-            <Download className="h-3.5 w-3.5" />
+            <Download className="h-4 w-4" />
           </button>
           <label
-            className="p-1.5 text-text-muted hover:text-primary transition-colors rounded-lg hover:bg-background cursor-pointer"
+            className="p-2 text-text-muted hover:text-primary transition-colors rounded-lg hover:bg-primary/5 cursor-pointer"
             title="Importar revisiones"
           >
-            <Upload className="h-3.5 w-3.5" />
+            <Upload className="h-4 w-4" />
             <input
               type="file"
               accept=".json"
@@ -108,7 +108,7 @@ export function ValidationPanel({
       </div>
 
       {/* Status buttons */}
-      <div className="flex gap-2 mb-3">
+      <div className="grid grid-cols-3 gap-2.5">
         {(Object.entries(STATUS_CONFIG) as [ReviewStatus, typeof STATUS_CONFIG.approved][]).map(
           ([status, config]) => {
             const Icon = config.icon;
@@ -118,33 +118,33 @@ export function ValidationPanel({
                 key={status}
                 onClick={() => handleStatusClick(status)}
                 className={cn(
-                  "flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg border border-border text-sm font-medium transition-colors",
+                  "flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border border-border text-sm font-semibold transition-all cursor-pointer",
                   isActive ? config.activeStyle : config.style
                 )}
               >
-                <Icon className="h-4 w-4" />
-                <span className="hidden sm:inline">{config.label}</span>
+                <Icon className="h-5 w-5" />
+                <span>{config.label}</span>
+                <kbd className="text-[10px] font-mono opacity-50 bg-background/50 border border-border/50 rounded px-1.5 py-0.5">{config.kbd}</kbd>
               </button>
             );
           }
         )}
       </div>
 
-      {/* Keyboard hint */}
-      <div className="text-[10px] text-text-muted mb-2 flex gap-3">
-        <span><kbd className="px-1 py-0.5 bg-background border border-border rounded text-[9px]">A</kbd> Aprobar</span>
-        <span><kbd className="px-1 py-0.5 bg-background border border-border rounded text-[9px]">F</kbd> Flag</span>
-        <span><kbd className="px-1 py-0.5 bg-background border border-border rounded text-[9px]">R</kbd> Rechazar</span>
-      </div>
-
       {/* Notes */}
-      <textarea
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-        placeholder="Notas de revisión... (N para enfocar)"
-        className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm text-text-primary focus:border-primary focus:outline-none resize-y min-h-[60px]"
-        rows={2}
-      />
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          <MessageSquare className="h-3.5 w-3.5 text-text-muted" aria-hidden="true" />
+          <span className="text-xs font-medium text-text-muted">Notas de revision</span>
+        </div>
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Escribe notas sobre esta pregunta..."
+          className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/10 resize-y min-h-[80px] transition-all"
+          rows={3}
+        />
+      </div>
     </div>
   );
 }

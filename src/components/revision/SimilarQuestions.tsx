@@ -12,8 +12,8 @@ export function SimilarQuestions({ similar, onNavigate }: SimilarQuestionsProps)
   if (similar.length === 0) return null;
 
   return (
-    <div className="bg-surface rounded-xl border border-border p-4">
-      <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">
+    <div className="bg-surface rounded-2xl border border-border p-5">
+      <h3 className="text-sm font-bold text-text-primary font-heading uppercase tracking-wide mb-4">
         Preguntas similares
       </h3>
       <div className="space-y-3">
@@ -23,33 +23,33 @@ export function SimilarQuestions({ similar, onNavigate }: SimilarQuestionsProps)
             <button
               key={s.key}
               onClick={() => onNavigate(s.key)}
-              className="w-full text-left p-3 rounded-lg border border-border hover:border-primary/30 hover:bg-background transition-colors"
+              className="w-full text-left p-4 rounded-xl border border-border hover:border-primary/30 hover:bg-background/80 transition-all cursor-pointer"
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-mono font-semibold text-primary">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-sm font-mono font-bold text-primary">
                     {s.key}
                   </span>
                   <Badge variant="primary">{s.specialty}</Badge>
                 </div>
-                <span className="text-xs font-semibold text-text-muted">{pct}%</span>
+                <span className="text-xs font-bold text-text-muted tabular-nums">{pct}%</span>
               </div>
               {/* Score bar */}
-              <div className="h-1 rounded-full bg-border/50 mb-2">
+              <div className="h-1.5 rounded-full bg-border/50 mb-2.5">
                 <div
-                  className="h-full rounded-full bg-primary/60 transition-[width]"
+                  className="h-full rounded-full bg-gradient-to-r from-primary to-primary-light transition-[width]"
                   style={{ width: `${pct}%` }}
                 />
               </div>
-              <p className="text-xs text-text-secondary line-clamp-1">
+              <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed">
                 {s.textSummary}
               </p>
               {s.shared.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-1.5">
+                <div className="flex flex-wrap gap-1.5 mt-2">
                   {s.shared.map((code) => (
                     <span
                       key={code}
-                      className="text-[10px] bg-background px-1.5 py-0.5 rounded text-text-muted border border-border"
+                      className="text-[11px] bg-background px-2 py-0.5 rounded-md text-text-muted border border-border font-medium"
                     >
                       {code}
                     </span>

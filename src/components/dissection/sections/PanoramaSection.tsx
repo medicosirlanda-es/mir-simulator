@@ -36,8 +36,8 @@ export function PanoramaSection({ data, yearLabel, onNavigateToExplorer, onSpeci
         <StatCard value={total} title="Preguntas" subtitle="Examen completo" color="blue" />
         <StatCard value={specCount} title="Especialidades" subtitle="Áreas médicas" color="green" />
         <StatCard value={imgCount} title="Con imagen" subtitle={`${pct(imgCount, total)}% del examen`} color="orange" />
-        <StatCard value={topSpec[0]} title="Top especialidad" subtitle={`${topSpec[1]} preguntas`} color="violet" />
-        <StatCard value={formatLabel(topCog[0])} title="Nivel cognitivo" subtitle={`Más frecuente (${topCog[1]})`} color="cyan" />
+        <StatCard value={topSpec[0]} title="Top especialidad" subtitle={`${topSpec[1]} preguntas`} color="navy" />
+        <StatCard value={formatLabel(topCog[0])} title="Nivel cognitivo" subtitle={`Más frecuente (${topCog[1]})`} color="steel" />
         <StatCard value={formatLabel(topTask[0])} title="Tarea clínica" subtitle={`Más frecuente (${topTask[1]})`} color="red" />
       </div>
 

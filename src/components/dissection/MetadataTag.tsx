@@ -5,7 +5,7 @@ type MetadataTagType = "spec" | "type" | "cog" | "task" | "img";
 const TYPE_STYLES: Record<MetadataTagType, string> = {
   spec: "bg-primary/[0.08] border-primary/20 text-primary",
   type: "bg-accent-orange/[0.08] border-accent-orange/20 text-accent-orange-dark",
-  cog: "bg-[#8b5cf6]/[0.08] border-[#8b5cf6]/20 text-[#8b5cf6]",
+  cog: "bg-primary-dark/[0.08] border-primary-dark/20 text-primary-dark",
   task: "bg-accent-green/[0.08] border-accent-green/20 text-accent-green-dark",
   img: "bg-error/[0.08] border-error/20 text-error-dark",
 };

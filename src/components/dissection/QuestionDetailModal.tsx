@@ -196,7 +196,7 @@ export function QuestionDetailModal({
             {q.icd10.map((c) => (
               <span
                 key={c}
-                className="text-xs bg-[#8b5cf6]/10 text-[#8b5cf6] px-2 py-0.5 rounded"
+                className="text-xs bg-primary-dark/10 text-primary-dark px-2 py-0.5 rounded"
               >
                 {c}
               </span>

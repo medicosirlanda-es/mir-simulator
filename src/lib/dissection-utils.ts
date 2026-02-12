@@ -67,15 +67,33 @@ export const LABELS: Record<string, string> = {
   grafico: "Gráfico/tabla",
 };
 
-// ── Chart palette (light theme) ─────────────────────────────────
+// ── Chart palette — clinical blue progression + selective accents ──
 
 export const CHART_PALETTE = [
-  "#3159a7", "#169B62", "#FF883E", "#8b5cf6",
-  "#ef4444", "#06b6d4", "#ec4899", "#f59e0b",
-  "#84cc16", "#6366f1", "#14b8a6", "#e11d48",
-  "#a855f7", "#eab308", "#22d3ee", "#fb923c",
-  "#4ade80", "#f472b6", "#818cf8", "#fbbf24",
-  "#2dd4bf", "#c084fc", "#facc15", "#38bdf8",
+  "#263f78", // primary-dark (navy)
+  "#3159a7", // primary (brand blue)
+  "#3d82c3", // primary-light
+  "#169B62", // accent-green
+  "#5B8AD9", // mid-blue
+  "#0F7A4D", // accent-green-dark
+  "#FF883E", // accent-orange (warm)
+  "#7BA4E8", // light-blue
+  "#4A73BE", // steel-blue
+  "#2A9D6E", // teal-green
+  "#E67A38", // accent-orange-dark
+  "#92B4ED", // pastel-blue
+  "#1A5276", // deep-navy
+  "#3498A2", // muted-teal
+  "#5DADE2", // sky-blue
+  "#1E8449", // forest-green
+  "#2E86C1", // ocean-blue
+  "#45B39D", // seafoam
+  "#6C8EBF", // slate-blue
+  "#85C1E9", // ice-blue
+  "#27AE60", // emerald
+  "#2874A6", // prussian-blue
+  "#A9CCE3", // powder-blue
+  "#76D7C4", // mint
 ];
 
 // ── Utilities ────────────────────────────────────────────────────
@@ -242,15 +260,15 @@ export const FILTER_FIELDS: { key: DissectionFilterKey; label: string }[] = [
 
 // ── Stat card color config ──────────────────────────────────────
 
-export type StatColor = "blue" | "green" | "orange" | "violet" | "red" | "cyan";
+export type StatColor = "blue" | "green" | "orange" | "navy" | "red" | "steel";
 
 export const STAT_COLORS: Record<StatColor, { bg: string; text: string }> = {
   blue: { bg: "bg-primary/10", text: "text-primary" },
   green: { bg: "bg-accent-green/10", text: "text-accent-green" },
   orange: { bg: "bg-accent-orange/10", text: "text-accent-orange" },
-  violet: { bg: "bg-[#8b5cf6]/10", text: "text-[#8b5cf6]" },
+  navy: { bg: "bg-primary-dark/10", text: "text-primary-dark" },
   red: { bg: "bg-error/10", text: "text-error" },
-  cyan: { bg: "bg-[#06b6d4]/10", text: "text-[#06b6d4]" },
+  steel: { bg: "bg-primary-light/10", text: "text-primary-light" },
 };
 
 // ── SNOMED role labels ──────────────────────────────────────────

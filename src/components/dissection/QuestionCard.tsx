@@ -35,7 +35,7 @@ export function QuestionCard({ question: q, onClick, showYear }: QuestionCardPro
             <span className="inline-block text-[11px] px-2 py-0.5 rounded-full bg-accent-orange/10 text-accent-orange-dark font-medium">
               {formatLabel(q.questionType)}
             </span>
-            <span className="inline-block text-[11px] px-2 py-0.5 rounded-full bg-[#8b5cf6]/10 text-[#8b5cf6] font-medium">
+            <span className="inline-block text-[11px] px-2 py-0.5 rounded-full bg-primary-dark/10 text-primary-dark font-medium">
               {formatLabel(q.cognitiveLevel)}
             </span>
             <span className="inline-block text-[11px] px-2 py-0.5 rounded-full bg-accent-green/10 text-accent-green-dark font-medium">

@@ -139,7 +139,7 @@ export function DrillDownModal({
                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent-orange/10 text-accent-orange-dark font-medium">
                               {formatLabel(q.questionType)}
                             </span>
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#8b5cf6]/10 text-[#8b5cf6] font-medium">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary-dark/10 text-primary-dark font-medium">
                               {formatLabel(q.cognitiveLevel)}
                             </span>
                             {q.images.length > 0 && (

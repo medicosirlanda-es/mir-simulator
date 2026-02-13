@@ -1,7 +1,7 @@
 {
-  "totalExams": 23,
-  "totalQuestions": 5267,
-  "yearRange": "2003-2025",
+  "totalExams": 22,
+  "totalQuestions": 5057,
+  "yearRange": "2003-2024",
   "exams": [
     {
       "year": 2003,
@@ -152,13 +152,6 @@
     },
     {
       "year": 2024,
-      "totalQuestions": 210,
-      "numOptions": 4,
-      "hasImages": true,
-      "imageCount": 25
-    },
-    {
-      "year": 2025,
       "totalQuestions": 210,
       "numOptions": 4,
       "hasImages": true,

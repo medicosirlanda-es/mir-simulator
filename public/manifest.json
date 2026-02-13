@@ -1,0 +1,30 @@
+{
+  "name": "MIR Online - Simulador de Exámenes MIR",
+  "short_name": "MIR Online",
+  "description": "Simulador de exámenes MIR oficiales (2003-2025) con 5.267 preguntas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0d9474",
+  "orientation": "portrait",
+  "lang": "es-ES",
+  "categories": ["education", "medical"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Figtree, Noto_Sans } from "next/font/google";
+import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -37,6 +38,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es-ES">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0d9474" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+      </head>
       <body className={`${figtree.variable} ${notoSans.variable} font-sans`}>
         <a
           href="#main-content"
@@ -45,6 +53,7 @@ export default function RootLayout({
           Saltar al contenido principal
         </a>
         {children}
+        <ServiceWorkerRegistrar />
       </body>
     </html>
   );

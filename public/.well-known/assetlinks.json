@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.vercel.mir_simulator.twa",
+    "sha256_cert_fingerprints": ["A5:96:52:7F:3A:24:C8:25:29:8F:02:A9:B7:72:3E:F1:08:02:0E:0A:3C:DD:5F:E8:78:34:54:EF:E6:E3:04:8B"]
+  }
+}]

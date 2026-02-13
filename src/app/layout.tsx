@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Figtree, Noto_Sans } from "next/font/google";
-import { ServiceWorkerRegistrar } from "@/components/ServiceWorkerRegistrar";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -53,7 +52,11 @@ export default function RootLayout({
           Saltar al contenido principal
         </a>
         {children}
-        <ServiceWorkerRegistrar />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if("serviceWorker"in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")})}`,
+          }}
+        />
       </body>
     </html>
   );

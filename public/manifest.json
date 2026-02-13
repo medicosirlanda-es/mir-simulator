@@ -1,14 +1,19 @@
 {
+  "id": "/",
   "name": "MIR Online - Simulador de Exámenes MIR",
   "short_name": "MIR Online",
-  "description": "Simulador de exámenes MIR oficiales (2003-2025) con 5.267 preguntas",
+  "description": "Simulador de exámenes MIR oficiales (2003-2025) con 5.267 preguntas. Practica con corrección automática y revisión detallada.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#0f172a",
   "theme_color": "#0d9474",
   "orientation": "portrait",
+  "dir": "ltr",
   "lang": "es-ES",
   "categories": ["education", "medical"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icons/icon-192.png",
@@ -25,6 +30,36 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "500x640",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Simulador MIR - Pantalla principal"
+    },
+    {
+      "src": "/screenshots/wide.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Simulador MIR - Vista escritorio"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Practicar",
+      "short_name": "Practicar",
+      "url": "/practicar/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Revisión",
+      "short_name": "Revisión",
+      "url": "/revision/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
